@@ -1,0 +1,18 @@
+[project]
+name = "llm-council"
+version = "0.1"
+description = "Use LLM to generate and execute commands in your shell"
+readme = "README.md"
+authors = [{name = "Simon Willison"}]
+license = "MIT"
+
+dependencies = [
+    "llm",
+    "prompt_toolkit>=3.0.43",
+]
+
+[project.urls]
+homepage = "https://github.com/nuwandavek/llm-council"
+
+[project.entry-points.llm]
+council = "llm_council"
