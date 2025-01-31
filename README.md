@@ -8,6 +8,8 @@ This plugin should be installed in the same environment as [LLM](https://llm.dat
 ```bash
 llm install llm-council
 ```
+
+![council](assets/council.png)
 ## Usage
 
 I usually run every query on all LLMs just to see what they have to say. And I love the llm library. You can now assemble your own council of advisors by simply running `llm council` like this:
@@ -24,6 +26,8 @@ llm council -p openai -p anthropic 'tell me a joke'
 The models themselves are fixed as of now with:
 - openai: gpt-4o
 - anthropic: clause-3-5-sonnet-latest
+
+Press Q or Ctrl + C to exit.
 
 ## The system prompt
 
