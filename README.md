@@ -10,6 +10,20 @@ llm install llm-council
 ```
 
 ![council](https://raw.githubusercontent.com/nuwandavek/llm-council/refs/heads/master/assets/council.png)
+
+### Supported models/providers
+The models themselves are fixed as of now with:
+- `openai`: `gpt-4o`
+- `anthropic`: `clause-3-5-sonnet-latest`
+- `gemini`: `gemini-1.5-flash-latest`
+
+The necessary `llm plugins` are already installed. But you still need to set the keys
+```bash
+llm keys set openai
+llm keys set claude
+llm keys set gemini
+```
+
 ## Usage
 
 I usually run every query on all LLMs just to see what they have to say. And I love the llm library. You can now assemble your own council of advisors by simply running `llm council` like this:
@@ -23,10 +37,6 @@ By default, it uses `openai` and `anthropic`. But you can specify the providers 
 ```bash
 llm council -p openai -p anthropic 'tell me a joke'
 ```
-The models themselves are fixed as of now with:
-- openai: gpt-4o
-- anthropic: clause-3-5-sonnet-latest
-
 Press Q or Ctrl + C to exit.
 
 ## The system prompt
