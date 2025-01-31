@@ -9,7 +9,7 @@ This plugin should be installed in the same environment as [LLM](https://llm.dat
 llm install llm-council
 ```
 
-![council](assets/council.png)
+![council](https://raw.githubusercontent.com/nuwandavek/llm-council/refs/heads/master/assets/council.png)
 ## Usage
 
 I usually run every query on all LLMs just to see what they have to say. And I love the llm library. You can now assemble your own council of advisors by simply running `llm council` like this:
