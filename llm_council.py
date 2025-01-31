@@ -6,7 +6,6 @@ from prompt_toolkit.document import Document
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.layout.controls import BufferControl
 from prompt_toolkit.styles import Style
-from prompt_toolkit.formatted_text import HTML
 
 import click
 import llm
@@ -14,6 +13,7 @@ import llm
 style = Style.from_dict({
     "frame.border.blue": "ansiblue",
     "frame.border.red": "ansired",
+    "frame.border.yellow": "ansiyellow",
 })
 
 SYSTEM_PROMPT = """
@@ -21,13 +21,9 @@ Keep your answers brief and to the point.
 """.strip()
 
 PROVIDER_MODELS = {
-    "openai": "gpt-4o",
-    "anthropic": "claude-3-5-sonnet-latest"
-}
-
-PROVIDER_STYLES = {
-    "openai": "class:frame.border.blue",
-    "anthropic": "class:frame.border.red"
+    "openai": {"model": "gpt-4o", "style": "class:frame.border.blue"},
+    "anthropic": {"model": "claude-3-5-sonnet-latest", "style": "class:frame.border.red"},
+    "gemini": {"model": "gemini-1.5-flash-latest", "style": "class:frame.border.yellow"},
 }
 
 
@@ -46,7 +42,7 @@ def register_commands(cli):
                 return
         responses = {}
         for provider in providers:
-            model = llm.get_model(PROVIDER_MODELS[provider])
+            model = llm.get_model(PROVIDER_MODELS[provider]["model"])
             model.key = llm.get_key('', model.needs_key, model.key_env_var)
             responses[provider] = str(model.prompt(prompt, system=system or SYSTEM_PROMPT))
         display_council(prompt, responses)
@@ -54,7 +50,7 @@ def register_commands(cli):
 
 def display_council(prompt, responses):
     buffers = [Buffer(document=Document(f"Q: {prompt}\n\n\n{response}", cursor_position=0), read_only=True) for response in responses.values()]
-    windows = [Frame(Window(BufferControl(buffer=buffer), wrap_lines=True), title=provider, style=PROVIDER_STYLES[provider]) for provider, buffer in zip(responses.keys(), buffers)]
+    windows = [Frame(Window(BufferControl(buffer=buffer), wrap_lines=True), title=provider, style=PROVIDER_MODELS[provider]["style"]) for provider, buffer in zip(responses.keys(), buffers)]
     toolbar = TextArea(text="Press TAB to switch windows | Press Q or Ctrl+C to exit", height=1, style="reverse")
 
     layout = Layout(HSplit([
