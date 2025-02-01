@@ -14,8 +14,8 @@ llm install llm-council
 ### Supported models/providers
 The models themselves are fixed as of now with:
 - `openai`: `gpt-4o`
-- `anthropic`: `clause-3-5-sonnet-latest`
-- `gemini`: `gemini-1.5-flash-latest`
+- `anthropic`: `clause-3.5-sonnet`
+- `google`: `gemini-1.5-flash-latest`
 
 The necessary `llm plugins` are already installed. But you still need to set the keys
 ```bash
