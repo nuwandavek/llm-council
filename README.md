@@ -9,7 +9,7 @@ This plugin should be installed in the same environment as [LLM](https://llm.dat
 llm install llm-council
 ```
 
-![council](https://raw.githubusercontent.com/nuwandavek/llm-council/refs/heads/master/assets/council.png)
+![council](https://raw.githubusercontent.com/nuwandavek/llm-council/refs/heads/master/assets/council2.png)
 
 ### Supported models/providers
 The models themselves are fixed as of now with:
