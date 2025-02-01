@@ -22,8 +22,8 @@ Keep your answers brief and to the point.
 
 PROVIDER_MODELS = {
     "openai": {"model": "gpt-4o", "style": "class:frame.border.blue"},
-    "anthropic": {"model": "claude-3-5-sonnet-latest", "style": "class:frame.border.red"},
-    "gemini": {"model": "gemini-1.5-flash-latest", "style": "class:frame.border.yellow"},
+    "anthropic": {"model": "claude-3.5-sonnet", "style": "class:frame.border.red"},
+    "google": {"model": "gemini-1.5-flash-latest", "style": "class:frame.border.yellow"},
 }
 
 
@@ -50,13 +50,18 @@ def register_commands(cli):
 
 def display_council(prompt, responses):
     buffers = [Buffer(document=Document(f"Q: {prompt}\n\n\n{response}", cursor_position=0), read_only=True) for response in responses.values()]
-    windows = [Frame(Window(BufferControl(buffer=buffer), wrap_lines=True), title=provider, style=PROVIDER_MODELS[provider]["style"]) for provider, buffer in zip(responses.keys(), buffers)]
+    windows = [Frame(Window(BufferControl(buffer=buffer), wrap_lines=True, ignore_content_width=True), title=f"{provider}: {PROVIDER_MODELS[provider]['model'].replace('-latest', '')}", style=PROVIDER_MODELS[provider]["style"]) for provider, buffer in zip(responses.keys(), buffers)]
     toolbar = TextArea(text="Press TAB to switch windows | Press Q or Ctrl+C to exit", height=1, style="reverse")
+    header = TextArea(text=f"llm-council | council members: {', '.join(responses.keys())}", height=1, style="reverse")
 
     layout = Layout(HSplit([
+        header,
+        TextArea(text="", height=1),
         VSplit(windows),
+        TextArea(text="", height=1),
         toolbar
     ]))
+    layout.focus(buffers[0])
 
     kb = KeyBindings()
 
